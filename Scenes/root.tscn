@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b41lmk8x2aa0b"]
+
+[ext_resource type="PackedScene" uid="uid://ds4mpx736ncdy" path="res://Scenes/Player.tscn" id="1_aljgc"]
+[ext_resource type="Script" path="res://Scripts/root.cs" id="1_r5wve"]
+[ext_resource type="PackedScene" uid="uid://bdjq4kolp25yc" path="res://Scenes/Laser.tscn" id="5_k5cr8"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_r5wve")
+
+[node name="Laser" parent="." instance=ExtResource("5_k5cr8")]
+position = Vector2(197, 66)
+
+[node name="Player" parent="." instance=ExtResource("1_aljgc")]
+
+[connection signal="Shoot" from="Player" to="." method="_on_player_shoot"]

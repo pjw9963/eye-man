@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://ds4mpx736ncdy"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="2_0qh7q"]
+[ext_resource type="Texture2D" uid="uid://dnlal4wtxhrm2" path="res://Assets/Red64.png" id="3_va8u8"]
+[ext_resource type="Script" path="res://Scripts/Diode.cs" id="4_y7xld"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rm0pv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_va8u8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blvkv"]
+size = Vector2(64, 64)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("2_0qh7q")
+
+[node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rm0pv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_blvkv")
+
+[node name="Diode" type="Node2D" parent="."]
+position = Vector2(38, 0)
+script = ExtResource("4_y7xld")
+
+[node name="Sprite2D" type="Sprite2D" parent="Diode"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_va8u8")

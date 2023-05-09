@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdjq4kolp25yc"]
+
+[ext_resource type="Texture2D" uid="uid://yrwji1pjqgbk" path="res://Assets/16x64Green.png" id="1_06apa"]
+[ext_resource type="Script" path="res://Scripts/Laser.cs" id="1_devew"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsv1v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_06apa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5u6qt"]
+size = Vector2(16, 64)
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_devew")
+
+[node name="Area2D" type="Area2D" parent="."]
+rotation = 1.5708
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+sprite_frames = SubResource("SpriteFrames_jsv1v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5u6qt")
