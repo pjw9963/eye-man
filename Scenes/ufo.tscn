@@ -6,15 +6,19 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7a23"]
 radius = 23.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="UFO" type="CharacterBody2D"]
 position = Vector2(-1, 0)
 scale = Vector2(2.04, 2.04)
 script = ExtResource("3_c0j6y")
 
-[node name="UFO" type="Sprite2D" parent="."]
+[node name="UFOSprite" type="Sprite2D" parent="."]
 position = Vector2(0.490196, -7.62939e-06)
 texture = ExtResource("1_xnrn2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(2.03922, 2.01961)
 shape = SubResource("CircleShape2D_x7a23")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
