@@ -10,8 +10,9 @@ public partial class Diode : Node2D
 
     }
 
-    public override void _Process(double delta)
+    public void _on_player_shoot(PackedScene laser, float direction, Vector2 location)
     {
-
+        var audioSteam = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+        audioSteam.Play();
     }
 }

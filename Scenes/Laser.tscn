@@ -21,12 +21,17 @@ size = Vector2(16, 64)
 [node name="Laser" type="Node2D"]
 script = ExtResource("1_devew")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="LaserArea" type="Area2D" parent="."]
 rotation = 1.5708
 script = ExtResource("2_slahx")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LaserArea"]
 sprite_frames = SubResource("SpriteFrames_jsv1v")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserArea"]
 shape = SubResource("RectangleShape2D_5u6qt")
+
+[node name="LaserOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="LaserArea"]
+scale = Vector2(-1.00041, 3.33333)
+
+[connection signal="screen_exited" from="LaserArea/LaserOnScreenNotifier2D" to="." method="_on_laser_on_screen_notifier_2d_screen_exited"]

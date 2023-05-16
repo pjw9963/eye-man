@@ -2,14 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://ds4mpx736ncdy" path="res://Scenes/Player.tscn" id="1_aljgc"]
 [ext_resource type="Script" path="res://Scripts/root.cs" id="1_r5wve"]
-[ext_resource type="PackedScene" uid="uid://bdjq4kolp25yc" path="res://Scenes/Laser.tscn" id="5_k5cr8"]
+[ext_resource type="PackedScene" uid="uid://dwqvuhfbdvaxv" path="res://Scenes/ufo.tscn" id="4_vxhud"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_r5wve")
 
-[node name="Laser" parent="." instance=ExtResource("5_k5cr8")]
-position = Vector2(197, 66)
-
 [node name="Player" parent="." instance=ExtResource("1_aljgc")]
+position = Vector2(417, 708)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("4_vxhud")]
+position = Vector2(928, 698)
+collision_layer = 0
+collision_mask = 0
 
 [connection signal="Shoot" from="Player" to="." method="_on_player_shoot"]
