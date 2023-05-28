@@ -1,24 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwqvuhfbdvaxv"]
+[gd_scene load_steps=5 format=3 uid="uid://dwqvuhfbdvaxv"]
 
 [ext_resource type="Texture2D" uid="uid://bipnigar83oai" path="res://Assets/circle128.png" id="1_xnrn2"]
 [ext_resource type="Script" path="res://Scripts/UFOCharacterBody2D.cs" id="3_c0j6y"]
+[ext_resource type="AudioStream" uid="uid://dhqifl55ka4xy" path="res://Assets/enemyLaserShoot.wav" id="3_cnflc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_x7a23"]
-radius = 23.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_03x8g"]
+radius = 46.0706
 
 [node name="UFO" type="CharacterBody2D"]
 position = Vector2(-1, 0)
 scale = Vector2(2.04, 2.04)
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("3_c0j6y")
 
 [node name="UFOSprite" type="Sprite2D" parent="."]
 position = Vector2(0.490196, -7.62939e-06)
 texture = ExtResource("1_xnrn2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(2.03922, 2.01961)
-shape = SubResource("CircleShape2D_x7a23")
-
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_cnflc")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.490196, 0)
+shape = SubResource("CircleShape2D_03x8g")
+
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

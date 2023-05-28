@@ -9,7 +9,7 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 		ShootEventHandler(PackedScene laser, float direction, Vector2 location);
 
 	private PackedScene
-		_laser = GD.Load<PackedScene>("res://Scenes/Laser.tscn");
+		_laser = GD.Load<PackedScene>("res://Scenes/EnemyLaser.tscn");
 
 	private Vector2 targetPos;
 
@@ -74,8 +74,12 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 			var player = GetTree().Root.GetNode<CharacterBody2D>("root/Player");
 			EmitSignal(SignalName.Shoot,
 			_laser,
-			(player.Position - Position).Angle() + random.NextDouble() * 0.5 - 0.25,
+			(player.Position - Position).Angle() +
+			random.NextDouble() * 0.5 -
+			0.25,
 			Position);
+			var audioSteam = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+			audioSteam.Play();
 			shootCooldown();
 		}
 	}
@@ -119,4 +123,16 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 		ON_SCREEN = true;
 		CAN_SHOOT = true;
 	}
+	
+	private void _on_area_2d_area_entered(Area2D area)
+	{
+		// handle collision with laser
+		area.GetParent().QueueFree();
+		this.QueueFree();
+	}
+
 }
+
+
+
+

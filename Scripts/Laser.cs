@@ -16,8 +16,7 @@ public partial class Laser : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		var vosn = GetNode<VisibleOnScreenNotifier2D>("LaserArea/LaserOnScreenNotifier2D");
-
+		var vosn = GetNode<VisibleOnScreenNotifier2D>("LaserArea/LaserOnScreenNotifier2D");	
 	}
 
 	public override void _PhysicsProcess(double delta)
