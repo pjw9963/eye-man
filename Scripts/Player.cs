@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public partial class Player : CharacterBody2D
 {
 	[Export]
-	public int Speed { get; set; } = 400;
+	public int Speed { get; set; } = 500;
 	[Signal]
 	public delegate void ShootEventHandler(PackedScene laser, float direction, Vector2 location);
 	private PackedScene _laser = GD.Load<PackedScene>("res://Scenes/Laser.tscn");

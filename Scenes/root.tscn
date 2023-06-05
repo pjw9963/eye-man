@@ -2,16 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://ds4mpx736ncdy" path="res://Scenes/Player.tscn" id="1_aljgc"]
 [ext_resource type="Script" path="res://Scripts/root.cs" id="1_r5wve"]
-[ext_resource type="PackedScene" uid="uid://dwqvuhfbdvaxv" path="res://Scenes/ufo.tscn" id="4_vxhud"]
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.cs" id="2_rdnal"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_r5wve")
 
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("2_rdnal")
+
 [node name="Player" parent="." instance=ExtResource("1_aljgc")]
 position = Vector2(417, 708)
 
-[node name="UFO" parent="." instance=ExtResource("4_vxhud")]
-position = Vector2(928, 698)
-
+[connection signal="Spawn" from="EnemySpawner" to="." method="_on_enemy_spawner_spawn"]
 [connection signal="Shoot" from="Player" to="." method="_on_player_shoot"]
-[connection signal="Shoot" from="UFO" to="." method="_on_ufo_shoot"]
