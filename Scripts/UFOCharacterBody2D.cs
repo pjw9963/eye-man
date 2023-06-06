@@ -8,6 +8,9 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 	public delegate void
 		ShootEventHandler(PackedScene laser, float direction, Vector2 location);
 
+	[Signal]
+	public delegate void DestroyedEventHandler(int points);
+
 	private PackedScene
 		_laser = GD.Load<PackedScene>("res://Scenes/EnemyLaser.tscn");
 
@@ -72,8 +75,8 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 		if (CAN_SHOOT)
 		{
 			var player = GetTree().Root.GetNode<CharacterBody2D>("root/Player");
-	
-			GD.Print(Position);
+
+			GD.Print (Position);
 			EmitSignal(SignalName.Shoot,
 			_laser,
 			(player.Position - Position).Angle() +
@@ -132,5 +135,6 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 		// handle collision with laser
 		area.GetParent().QueueFree();
 		this.QueueFree();
+		EmitSignal(SignalName.Destroyed, 20); // worth 20 points
 	}
 }
