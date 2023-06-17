@@ -6,17 +6,9 @@ public partial class root : Node2D
 {
 	private int playerScore = 0;
 
-	public async void _on_player_shoot(
-		PackedScene laser,
-		float direction,
-		Vector2 location
-	)
+	public async void _on_player_shoot(Node projectile)
 	{
-		// spawn laser and set rotation and direction
-		var laserInstance = (Laser) laser.Instantiate();
-		laserInstance.Rotation = direction;
-		laserInstance.Position = location;
-		AddChild (laserInstance);
+		AddChild (projectile);
 	}
 
 	private void _on_ufo_shoot(
@@ -26,7 +18,7 @@ public partial class root : Node2D
 	)
 	{
 		// spawn laser and set rotation and direction
-		var laserInstance = (Laser) laser.Instantiate();
+		var laserInstance = (Laser) laser.Instantiate();		
 		laserInstance.Rotation = direction;
 		laserInstance.Position = location;
 		AddChild (laserInstance);
@@ -36,6 +28,7 @@ public partial class root : Node2D
 	{
 		// spawn laser and set rotation and direction
 		var enemyInstance = (UFOCharacterBody2D) enemy.Instantiate();
+		enemyInstance.AddToGroup("enemies");
 		enemyInstance.Position = location;
 
 		// wire-up signals

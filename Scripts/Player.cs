@@ -1,19 +1,24 @@
-using Godot;
 using System;
 using System.Threading.Tasks;
+using Godot;
 
 public partial class Player : CharacterBody2D
 {
 	[Export]
 	public int Speed { get; set; } = 500;
+
+	// public delegate void ShootEventHandler(PackedScene laser, float direction, Vector2 location);
 	[Signal]
-	public delegate void ShootEventHandler(PackedScene laser, float direction, Vector2 location);
-	private PackedScene _laser = GD.Load<PackedScene>("res://Scenes/Laser.tscn");
+	public delegate void ShootEventHandler(Node projectile);
+
+	private PackedScene
+		_laser = GD.Load<PackedScene>("res://Scenes/Laser.tscn");
+
 	private Node2D _diodeNode;
 
 	public const int SHOOT_COOLDOWN = 250;
-	private bool canShoot;
 
+	private bool canShoot;
 
 	public override void _Ready()
 	{
@@ -24,14 +29,14 @@ public partial class Player : CharacterBody2D
 
 	public void GetInput()
 	{
-
 		Vector2 inputDirection = Input.GetVector("Left", "Right", "Up", "Down");
 		Velocity = inputDirection * Speed;
-		if (Input.IsActionPressed("Left") ||
+		if (
+			Input.IsActionPressed("Left") ||
 			Input.IsActionPressed("Right") ||
 			Input.IsActionPressed("Up") ||
-			Input.IsActionPressed("Down"))
-			Rotation = inputDirection.Angle();
+			Input.IsActionPressed("Down")
+		) Rotation = inputDirection.Angle();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -40,16 +45,25 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public async override void _Process(double delta)
+	public void _on_projectile_fired(Node2D projectile)
 	{
-		if (Input.IsActionPressed("Fire") && canShoot)
-		{
-			EmitSignal(SignalName.Shoot, _laser, Rotation, _diodeNode.GlobalPosition);
+		projectile.Rotation = Rotation;
+		projectile.Position = _diodeNode.GlobalPosition;
+		EmitSignal(SignalName.Shoot, projectile);
+	}
 
-			// cooldown logic
-			canShoot = false;
-			await Task.Delay(TimeSpan.FromMilliseconds(SHOOT_COOLDOWN));
-			canShoot = true;
-		}
+	public void _on_missile_fired(Missle missle, Side side)
+	{
+		// set velocity to left/right of forward position
+		var offset = (side == Side.Left ? 1 : -1) * 180;
+		var missleDirection = (offset + RotationDegrees) * (Math.PI / 180);
+		missle.Velocity =
+			new Vector2((float) Math.Cos(missleDirection),
+				(float) Math.Sin(missleDirection)) *
+			500;
+		missle.Position = Position;
+		GD.Print(missleDirection);
+		GD.Print(missle.Velocity);
+		EmitSignal(SignalName.Shoot, missle);
 	}
 }

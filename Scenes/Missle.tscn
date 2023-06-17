@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd51oj5db352l"]
+
+[ext_resource type="Texture2D" uid="uid://6sucrpgm6c42" path="res://Assets/mostly-square-peach-32.png" id="1_3yvvh"]
+[ext_resource type="Script" path="res://Scripts/Missle.cs" id="1_bxf0l"]
+[ext_resource type="AudioStream" uid="uid://cqi40fa5dspog" path="res://Assets/laserShoot.wav" id="2_54a46"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wild7"]
+radius = 50.0
+
+[node name="Missile" type="CharacterBody2D"]
+position = Vector2(621, 479)
+collision_layer = 0
+script = ExtResource("1_bxf0l")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_54a46")
+
+[node name="DetonationArea" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wild7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3yvvh")

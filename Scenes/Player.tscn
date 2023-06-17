@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds4mpx736ncdy"]
+[gd_scene load_steps=6 format=3 uid="uid://ds4mpx736ncdy"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="2_0qh7q"]
 [ext_resource type="Texture2D" uid="uid://dnlal4wtxhrm2" path="res://Assets/Red64.png" id="3_va8u8"]
-[ext_resource type="AudioStream" uid="uid://cqi40fa5dspog" path="res://Assets/laserShoot.wav" id="4_3rd6v"]
-[ext_resource type="Script" path="res://Scripts/Diode.cs" id="4_y7xld"]
+[ext_resource type="PackedScene" uid="uid://bbm0pki23plst" path="res://Scenes/MissleAbility.tscn" id="4_jfh5p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blvkv"]
 size = Vector2(64, 64)
@@ -25,6 +24,8 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("2_0qh7q")
 
+[node name="MissleAbility" parent="." instance=ExtResource("4_jfh5p")]
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
@@ -37,13 +38,9 @@ sprite_frames = SubResource("SpriteFrames_rm0pv")
 
 [node name="Diode" type="Node2D" parent="."]
 position = Vector2(38, 0)
-script = ExtResource("4_y7xld")
 
 [node name="Sprite2D" type="Sprite2D" parent="Diode"]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_va8u8")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Diode"]
-stream = ExtResource("4_3rd6v")
-
-[connection signal="Shoot" from="." to="Diode" method="_on_player_shoot"]
+[connection signal="Shoot" from="MissleAbility" to="." method="_on_missile_fired"]

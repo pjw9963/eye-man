@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwqvuhfbdvaxv"]
+[gd_scene load_steps=4 format=3 uid="uid://dwqvuhfbdvaxv"]
 
 [ext_resource type="Texture2D" uid="uid://bipnigar83oai" path="res://Assets/circle128.png" id="1_xnrn2"]
 [ext_resource type="Script" path="res://Scripts/UFOCharacterBody2D.cs" id="3_c0j6y"]
-[ext_resource type="AudioStream" uid="uid://dhqifl55ka4xy" path="res://Assets/enemyLaserShoot.wav" id="3_cnflc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_03x8g"]
 radius = 46.0706
@@ -18,9 +17,6 @@ position = Vector2(0.490196, -7.62939e-06)
 texture = ExtResource("1_xnrn2")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_cnflc")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

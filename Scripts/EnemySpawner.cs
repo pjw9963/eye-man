@@ -33,7 +33,6 @@ public partial class EnemySpawner : Node
 
 		// regen spawn points for next wave
 		spawnPoints += (8 * delta);
-		GD.Print(spawnPoints);
 	}
 
 	public async Task purchase()

@@ -76,7 +76,6 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 		{
 			var player = GetTree().Root.GetNode<CharacterBody2D>("root/Player");
 
-			GD.Print (Position);
 			EmitSignal(SignalName.Shoot,
 			_laser,
 			(player.Position - Position).Angle() +
@@ -84,8 +83,6 @@ public partial class UFOCharacterBody2D : CharacterBody2D
 			0.25,
 			Position);
 
-			var audioSteam = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
-			audioSteam.Play();
 			shootCooldown();
 		}
 	}
