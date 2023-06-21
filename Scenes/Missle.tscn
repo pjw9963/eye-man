@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dd51oj5db352l"]
 
-[ext_resource type="Texture2D" uid="uid://6sucrpgm6c42" path="res://Assets/mostly-square-peach-32.png" id="1_3yvvh"]
 [ext_resource type="Script" path="res://Scripts/Missle.cs" id="1_bxf0l"]
 [ext_resource type="AudioStream" uid="uid://cqi40fa5dspog" path="res://Assets/laserShoot.wav" id="2_54a46"]
+[ext_resource type="Texture2D" uid="uid://ugihjqfes5jn" path="res://Assets/green-triangel256.png" id="3_u3jwb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wild7"]
 radius = 50.0
@@ -24,6 +24,7 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_wild7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_3yvvh")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_u3jwb")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

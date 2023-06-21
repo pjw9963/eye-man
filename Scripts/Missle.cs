@@ -62,7 +62,7 @@ public partial class Missle : CharacterBody2D
 	{
 		if (!IsInstanceValid(targetEnemy)) {
 			var targetAquired = setTarget();
-			
+
 			if (!targetAquired) {
 				MoveAndSlide();
 				return;
@@ -72,6 +72,7 @@ public partial class Missle : CharacterBody2D
 		if (LAUNCHED)
 		{
 			direction = (targetEnemy.Position - this.Position).Normalized();
+			Rotation = (float) Math.Atan2(direction.Y, direction.X);
 		}
 
 		if (!LAUNCHED)

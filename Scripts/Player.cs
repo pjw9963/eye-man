@@ -60,10 +60,9 @@ public partial class Player : CharacterBody2D
 		missle.Velocity =
 			new Vector2((float) Math.Cos(missleDirection),
 				(float) Math.Sin(missleDirection)) *
-			250;
+			150;
 		missle.Position = Position;
-		GD.Print(missleDirection);
-		GD.Print(missle.Velocity);
+		missle.Rotation = missleDirection;
 		EmitSignal(SignalName.Shoot, missle);
 	}
 }
