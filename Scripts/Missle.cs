@@ -4,9 +4,13 @@ using Godot;
 
 public partial class Missle : CharacterBody2D
 {
-	public const float Speed = 1.0f;
+	public const float Speed = 100.0f;
 
 	public int launchDelay = 1000;
+
+	private PackedScene
+		_explosion = GD.Load<PackedScene>("res://Scenes/Explosion.tscn");
+
 	public Vector2 initDestination;
 
 	private Node2D targetEnemy;
@@ -56,6 +60,15 @@ public partial class Missle : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!IsInstanceValid(targetEnemy)) {
+			var targetAquired = setTarget();
+			
+			if (!targetAquired) {
+				MoveAndSlide();
+				return;
+			}
+		}
+
 		if (LAUNCHED)
 		{
 			direction = (targetEnemy.Position - this.Position).Normalized();
@@ -71,14 +84,35 @@ public partial class Missle : CharacterBody2D
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Y = direction.Y * Speed;
+
+			Velocity += velocity;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			// idk what this is supposed to do
+			// case when no direction is set, AKA not launched
+			// probably just supposed to be deceleration
+			// velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			// velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
 		}
 
-		Velocity += velocity;
 		MoveAndSlide();
+	}
+
+	private void _on_area_2d_area_entered(Area2D area)
+	{
+		// not gonna work, exp instance is attached to missile, which is getting QueueFreed
+		// need to signal up so exp instance is apart of root node
+		var expInstance = (Explosion) _explosion.Instantiate();
+		expInstance.Position = Position;
+
+		GetTree()
+			.Root
+			.GetChild(0)
+			.CallDeferred(Node.MethodName.AddChild, expInstance);
+
+		this.QueueFree();
+		// spawn explosion at location
+		// EmitSignal(SignalName.Destroyed, 20); // worth 20 points
 	}
 }

@@ -55,12 +55,12 @@ public partial class Player : CharacterBody2D
 	public void _on_missile_fired(Missle missle, Side side)
 	{
 		// set velocity to left/right of forward position
-		var offset = (side == Side.Left ? 1 : -1) * 180;
-		var missleDirection = (offset + RotationDegrees) * (Math.PI / 180);
+		var offset = side == Side.Left ? -1 * MathF.PI / 2 : MathF.PI / 2;
+		var missleDirection = offset + Rotation;
 		missle.Velocity =
 			new Vector2((float) Math.Cos(missleDirection),
 				(float) Math.Sin(missleDirection)) *
-			500;
+			250;
 		missle.Position = Position;
 		GD.Print(missleDirection);
 		GD.Print(missle.Velocity);
